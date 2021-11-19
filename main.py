@@ -7,13 +7,15 @@ from PyQt5.QtGui import QPainter, QBrush, QPen
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QDialog
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from addEditCoffeeForm import Ui_Form
+from mainn import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.connection = sqlite3.connect("data/coffee.sqlite")
         self.loadTable()
         self.check = False
         self.pushButton.clicked.connect(self.add)
@@ -50,11 +52,11 @@ class MyWidget(QMainWindow):
             self.loadTable()
 
 
-class AddWidget(QDialog):
+class AddWidget(Ui_Form):
     def __init__(self, cur_id=-1):
         super().__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.connection = sqlite3.connect("data/coffee.sqlite")
         self.pushButton.clicked.connect(self.click)
         self.id = cur_id
         if self.id != -1:
